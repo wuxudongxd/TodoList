@@ -9,11 +9,11 @@ const { modalState, closeModal } = defineProps<{
 const { newColumn } = inject(storeFnSymbol) as { newColumn: Function };
 
 const modalRef = ref<HTMLElement | null>(null);
-const columnName = ref("");
+const inputValue = ref("");
 
 const closeModalAndCleanInput = () => {
   closeModal();
-  columnName.value = "";
+  inputValue.value = "";
 };
 
 const modalBgHandler = (e: Event) => {
@@ -23,7 +23,7 @@ const modalBgHandler = (e: Event) => {
 };
 
 const createColumn = () => {
-  newColumn(columnName.value);
+  newColumn(inputValue.value);
   closeModalAndCleanInput();
 };
 </script>
@@ -51,10 +51,10 @@ const createColumn = () => {
             class="h-10 w-full pl-4 bg-gray-100 border rounded-md focus:outline-0 focus:border-blue-500 focus:ring focus:bg-white"
             placeholder="Enter a column name (To Do, In Progress, Done)"
             type="text"
-            v-model="columnName" />
+            v-model="inputValue" />
           <button
             @click="createColumn"
-            :disabled="!Boolean(columnName.length)"
+            :disabled="!Boolean(inputValue.length)"
             class="w-32 h-8 mt-10 text-white text-sm rounded-md bg-green-600 hover:bg-green-700 disabled:bg-green-600/50 transition-all">
             Create column
           </button>

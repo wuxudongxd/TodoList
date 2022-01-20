@@ -42,6 +42,13 @@ const newColumn = (name: string) => {
   });
 };
 
-const storeFn = { updateStore, newColumn };
+const newNote = (columnIndex: number, content: string) => {
+  store[columnIndex].notes.push({
+    id: UUID(),
+    content,
+  });
+};
+
+const storeFn = { updateStore, newColumn, newNote };
 
 export { store, storeFnSymbol, storeFn };
