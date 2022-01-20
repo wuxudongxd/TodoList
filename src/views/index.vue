@@ -1,12 +1,16 @@
 <script setup lang="ts">
-import { provide } from "vue";
+import { provide, ref } from "vue";
 import Column from "./Column.vue";
+import Modal from "./Modal.vue";
 import { store, storeFnSymbol, storeFn } from "../store/content";
 
-// provide state
+// provide global state
 provide(storeFnSymbol, storeFn);
 
-
+const modalState = ref(false);
+const closeModal = () => {
+  modalState.value = false;
+};
 </script>
 
 <template>
@@ -20,12 +24,14 @@ provide(storeFnSymbol, storeFn);
         :column="column"
         :column-index="index"></Column>
       <div
+        @click="modalState = true"
         class="h-28 w-80 flex-none self-start border border-dashed border-[#d0d7de] rounded-md">
         <div
           class="h-full w-full flex justify-center items-center text-[#57606a] text-sm hover:underline cursor-pointer">
           + Add column
         </div>
       </div>
+      <Modal :modal-state="modalState" :close-modal="closeModal"></Modal>
     </div>
   </div>
 </template>

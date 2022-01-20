@@ -18,7 +18,6 @@ useDrag(noteRef, { columnIndex, noteIndex });
     tabindex="0"
     draggable="true"
     class="h-20 w-full bg-white p-3 mb-2 rounded-md border border-gray-300 cursor-move hover:shadow focus:ring focus:ring-blue-200 focus:border-blue-600">
-    <div>{{ note.id }}</div>
     <div>{{ content }}</div>
   </div>
 </template>

@@ -1,10 +1,10 @@
 interface Note {
-  id: number;
+  id: string;
   content: string;
 }
 
 interface Column {
-  id: number;
+  id: string;
   name: string;
   notes: Note[];
 }
