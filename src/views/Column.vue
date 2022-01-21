@@ -5,17 +5,16 @@ import Note from "./Note.vue";
 import { storeFnSymbol } from "../store/content";
 
 // props
-const { column, columnIndex } =
-  defineProps<{ column: Column; columnIndex: number }>();
-const { name, notes } = toRefs(column);
-const count = computed(() => notes.value.length);
+const { column } = defineProps<{ column: Column }>();
+const { id: columnId, name, notes } = column;
+const count = computed(() => notes.length);
 
 // inject - to get content function
 const { newNote } = inject(storeFnSymbol) as { newNote: Function };
 
 // drop Hook
 const columnRef = ref<HTMLElement | null>(null);
-useDrop(columnRef, { columnIndex });
+useDrop(columnRef, { columnId });
 
 // add new note
 const newNoteState = ref(false);
@@ -24,7 +23,7 @@ const changeNoteState = () => {
 };
 const noteContent = ref("");
 const confirmAction = () => {
-  newNote(columnIndex, noteContent.value);
+  newNote(columnId, noteContent.value);
   noteContent.value = "";
 };
 </script>
@@ -61,10 +60,9 @@ const confirmAction = () => {
       </div>
     </div>
     <Note
-      v-for="(note, index) in notes"
+      v-for="note in notes"
       :key="note.id"
       :note="note"
-      :note-index="index"
-      :column-index="columnIndex"></Note>
+      :column-id="columnId"></Note>
   </div>
 </template>

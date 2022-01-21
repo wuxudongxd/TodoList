@@ -23,10 +23,9 @@ const closeModal = () => {
     <div class="h-16">tabBar</div>
     <div class="flex-1 p-4 flex items-center space-x-4 overflow-auto">
       <Column
-        v-for="(column, index) in store"
+        v-for="column in store"
         :key="column.id"
-        :column="column"
-        :column-index="index"></Column>
+        :column="column"></Column>
       <div
         @click="modalState = true"
         class="h-28 w-80 flex-none self-start border border-dashed border-[#d0d7de] rounded-md">

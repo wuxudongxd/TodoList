@@ -3,13 +3,12 @@ import { ref, toRefs } from "vue";
 import useDrag from "../hooks/useDrag";
 
 // props
-const { note, columnIndex, noteIndex } =
-  defineProps<{ note: Note; columnIndex: number; noteIndex: number }>();
+const { note, columnId } = defineProps<{ note: Note; columnId: string }>();
 const { content } = toRefs(note);
 
 // drag hook
 const noteRef = ref<HTMLElement | null>(null);
-useDrag(noteRef, { columnIndex, noteIndex });
+useDrag(noteRef, { columnId, noteId: note.id });
 </script>
 
 <template>

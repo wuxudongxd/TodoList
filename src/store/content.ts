@@ -26,12 +26,15 @@ const storeFnSymbol = Symbol("storeFnSymbol");
  * operation functions
  */
 const updateStore = (
-  FromColumnIndex: number,
-  FromNoteIndex: number,
-  ToColumnIndex: number
+  FromColumnId: string,
+  FromNoteId: string,
+  ToColumnId: string
 ) => {
-  const note = store[FromColumnIndex].notes.splice(FromNoteIndex, 1)[0];
-  store[ToColumnIndex].notes.push(note);
+  const FromColumn = store.find((column) => column.id === FromColumnId);
+  const FromNote = FromColumn?.notes.find((note) => note.id === FromNoteId);
+  const FromNoteIndex = FromColumn?.notes.indexOf(FromNote as Note) as number;
+  const ToColumn = store.find((column) => column.id === ToColumnId);
+  ToColumn?.notes.push(FromColumn?.notes.splice(FromNoteIndex, 1)[0] as Note);
 };
 
 const newColumn = (name: string) => {
@@ -42,8 +45,9 @@ const newColumn = (name: string) => {
   });
 };
 
-const newNote = (columnIndex: number, content: string) => {
-  store[columnIndex].notes.unshift({
+const newNote = (columnId: string, content: string) => {
+  const column = store.find((column) => column.id === columnId);
+  column?.notes.unshift({
     id: UUID(),
     content,
   });

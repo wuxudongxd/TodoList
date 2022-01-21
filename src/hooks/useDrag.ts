@@ -2,11 +2,11 @@ import { onMounted, onUnmounted, Ref } from "vue";
 
 const useDrag = (
   ref: Ref<HTMLElement | null>,
-  data: { columnIndex: number; noteIndex: number }
+  data: { columnId: string; noteId: string }
 ) => {
-  let { noteIndex, columnIndex } = data;
+  let { noteId, columnId } = data;
   const dragstart = (e: DragEvent) => {
-    e.dataTransfer?.setData("text/plain", `${columnIndex}-${noteIndex}`);
+    e.dataTransfer?.setData("text/plain", `${columnId},${noteId}`);    
   };
 
   const handlers = [dragstart];
