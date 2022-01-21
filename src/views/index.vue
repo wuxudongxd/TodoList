@@ -19,8 +19,9 @@ const closeModal = () => {
 
 <template>
   <div class="h-screen flex flex-col">
-    <div class="h-24 bg-[#f6f8fa] border-b border-gray-300">TODO List</div>
-    <div class="h-16">tabBar</div>
+    <div class="h-24 bg-[#f6f8fa] border-b border-gray-300 flex items-center">
+      <div class="ml-6 text-gray-700 text-lg">Todo List</div>
+    </div>
     <div class="flex-1 p-4 flex items-center space-x-4 overflow-auto">
       <Column
         v-for="column in store"

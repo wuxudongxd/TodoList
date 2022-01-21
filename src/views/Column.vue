@@ -34,7 +34,13 @@ const confirmAction = () => {
     tabindex="0"
     class="flex-none w-80 h-full px-2 overflow-auto rounded-md bg-[#f6f8fa] border border-gray-300 focus:ring focus:ring-blue-200 focus:border-blue-600">
     <div class="w-full h-10 mb-4 px-2 flex justify-between items-center">
-      <div class="text-sm">{{ count }}---{{ name }}</div>
+      <div class="text-xs text-gray-600 font-semibold flex items-center">
+        <div
+          class="w-5 h-5 bg-gray-200 flex justify-center items-center rounded-full">
+          {{ count }}
+        </div>
+        <div class="ml-2">{{ name }}</div>
+      </div>
       <div @click="changeNoteState" class="cursor-pointer hover:text-blue-500">
         十
       </div>
