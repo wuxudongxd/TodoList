@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { computed, ref, toRefs } from "vue";
+import { computed, inject, ref, toRefs } from "vue";
 import useDrop from "../hooks/useDrop";
 import Note from "./Note.vue";
+import { storeFnSymbol } from "../store/content";
 
 // props
 const { column, columnIndex } =
@@ -9,16 +10,23 @@ const { column, columnIndex } =
 const { name, notes } = toRefs(column);
 const count = computed(() => notes.value.length);
 
+// inject - to get content function
+const { newNote } = inject(storeFnSymbol) as { newNote: Function };
+
 // drop Hook
 const columnRef = ref<HTMLElement | null>(null);
 useDrop(columnRef, { columnIndex });
 
-// add new note state
+// add new note
 const newNoteState = ref(false);
 const changeNoteState = () => {
   newNoteState.value = !newNoteState.value;
 };
 const noteContent = ref("");
+const confirmAction = () => {
+  newNote(columnIndex, noteContent.value);
+  noteContent.value = "";
+};
 </script>
 
 <template>
@@ -41,6 +49,7 @@ const noteContent = ref("");
       <div class="flex justify-between items-center space-x-3">
         <button
           :disabled="!Boolean(noteContent.length)"
+          @click="confirmAction"
           class="w-1/2 h-8 rounded-md bg-green-600 disabled:bg-green-600/50 text-white transition-all">
           Add
         </button>

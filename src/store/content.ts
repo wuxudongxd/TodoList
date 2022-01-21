@@ -43,7 +43,7 @@ const newColumn = (name: string) => {
 };
 
 const newNote = (columnIndex: number, content: string) => {
-  store[columnIndex].notes.push({
+  store[columnIndex].notes.unshift({
     id: UUID(),
     content,
   });
