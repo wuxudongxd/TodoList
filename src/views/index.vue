@@ -15,6 +15,10 @@ const closeModal = () => {
   modalState.value = false;
   columnName.value = "";
 };
+const createNewColumn = () => {
+  storeFn.newColumn(columnName.value);
+  closeModal();
+};
 </script>
 
 <template>
@@ -43,12 +47,12 @@ const closeModal = () => {
           <label for="columnName" class="ml-1 text-gray-700">Column name</label>
           <input
             id="columnName"
-            class="h-10 w-full pl-4 mt-2 bg-gray-100 border rounded-md focus:outline-0 focus:border-blue-500 focus:ring focus:bg-white"
+            class="h-10 w-full pl-4 mt-2 bg-gray-100 border border-gray-300 rounded-md focus:outline-0 focus:border-blue-500 focus:ring focus:bg-white"
             placeholder="Enter a column name (To Do, In Progress, Done)"
             type="text"
             v-model="columnName" />
           <button
-            @click="storeFn.newColumn(columnName), closeModal"
+            @click="createNewColumn"
             :disabled="!Boolean(columnName.length)"
             class="w-32 h-8 mt-8 text-white border border-gray-300 rounded-md bg-green-600 hover:bg-green-700 disabled:bg-green-600/50 transition-all">
             Create column
