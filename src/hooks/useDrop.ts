@@ -1,9 +1,10 @@
-import { inject, onMounted, onUnmounted, Ref } from "vue";
-import { storeFnSymbol } from "../store/content";
+import { onMounted, onUnmounted, Ref } from "vue";
+import { useStore } from "Store/content";
 
 const useDrop = (ref: Ref<HTMLElement | null>, data: { columnId: string }) => {
   const { columnId } = data;
-  const { updateStore } = inject(storeFnSymbol) as { updateStore: Function };
+  const store = useStore();
+
   const drop = (e: DragEvent) => {
     e.preventDefault();
     const regex = /^(\S*),(\S*)$/g;
@@ -11,8 +12,8 @@ const useDrop = (ref: Ref<HTMLElement | null>, data: { columnId: string }) => {
     const [_, FromColumnId, FromNoteId] = regex.exec(
       dragData
     ) as RegExpExecArray;
-    
-    updateStore(FromColumnId, FromNoteId, columnId);
+
+    store.updateStore(FromColumnId, FromNoteId, columnId);
   };
 
   const dragenter = (e: DragEvent) => {

@@ -10,7 +10,17 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "lib": ["esnext", "dom"],
-    "declaration": true
+    "declaration": true,
+    "baseUrl": ".",
+    "paths": {
+      "Api/*":["src/api/*"],
+      "Components/*":["src/components/*"],
+      "Hooks/*":["src/hooks/*"],
+      "Static/*":["src/static/*"],
+      "Store/*":["src/store/*"],
+      "Utils/*":["src/util/*"],
+      "Views/*":["src/views/*"],
+    },
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"]
 }
