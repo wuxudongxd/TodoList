@@ -8,6 +8,9 @@ import Header from "Views/Column/Header.vue";
 const { column } = defineProps<{ column: Column }>();
 const { id: columnId, name, notes } = column;
 const count = computed(() => notes.length);
+const setColName = (newName: string) => {
+  column.name = newName;
+};
 
 // drop Hook
 const columnRef = ref<HTMLElement | null>(null);
