@@ -17,6 +17,13 @@ const useDrop = (ref: Ref<HTMLElement | null>, data: { columnId: string }) => {
   };
 
   const dragenter = (e: DragEvent) => {
+    /**
+     * dragenter事件不支持用dataTransfer.getData()读取，只有在drop的时候可以
+     * 参见：https://segmentfault.com/q/1010000000598879
+     * 实现完善的拖拽效果需要用到全局状态来存储拖拽和dragenter的note对应信息
+     * 这里先不写了，实现一个简陋版本，能用就行~
+     */
+
     e.preventDefault();
     e.dataTransfer && (e.dataTransfer.dropEffect = "move");
   };

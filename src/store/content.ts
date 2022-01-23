@@ -70,5 +70,16 @@ export const useStore = defineStore("todoList", {
       const columnIndex = this.list.indexOf(column as Column);
       this.list.splice(columnIndex, 1);
     },
+    setNoteContent(columnId: string, noteId: string, newContent: string) {
+      const column = this.list.find((column) => column.id === columnId);
+      const note = column?.notes.find((note) => note.id === noteId);
+      note?.content && (note.content = newContent);
+    },
+    delNote(columnId: string, noteId: string) {
+      const column = this.list.find((column) => column.id === columnId);
+      const note = column?.notes.find((note) => note.id === noteId);
+      const noteIndex = column?.notes.indexOf(note as Note);
+      column?.notes.splice(noteIndex as number, 1);
+    },
   },
 });

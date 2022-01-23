@@ -20,10 +20,10 @@ const modalBgHandler = (e: Event) => {
     <div
       v-if="modalState"
       @click="modalBgHandler"
-      class="absolute top-0 left-0 w-screen h-screen text-sm flex justify-center bg-gray-800/60 transition-all">
+      class="absolute top-0 left-0 w-screen h-screen text-sm flex justify-center items-start bg-gray-800/60 z-20 transition-all">
       <div
         ref="modalRef"
-        class="w-[32rem] h-60 mt-16 rounded-md border bg-white overflow-hidden shadow-xl">
+        class="w-[32rem] max-h-[25rem] flex-none mt-16 rounded-md border bg-white overflow-hidden shadow-xl">
         <div
           class="h-16 bg-[#f6f8fa] border-b border-gray-300 flex items-center justify-between pl-6">
           <span>{{ modalTitle }}</span>

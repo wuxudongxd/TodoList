@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.triangle {
+  &::before {
+    content: "";
+    position: absolute;
+    top: -16px;
+    right: 9px;
+    border-width: 8px;
+    border-color: transparent transparent #e5e7eb transparent;
+  }
+  &::after {
+    content: "";
+    position: absolute;
+    top: -13px;
+    right: 10px;
+    border-width: 7px;
+    border-color: transparent transparent #fff transparent;
+  }
+}

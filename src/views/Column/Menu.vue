@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref } from "vue";
+import { ref } from "vue";
 import { useStore } from "~/store/content";
 import Modal from "~/components/Modal.vue";
 
@@ -14,18 +14,21 @@ const store = useStore();
 
 // show menu
 const menuRef = ref<HTMLElement | null>(null);
+const openMenuRef = ref<HTMLElement | null>(null);
 const menuState = ref(false);
-const menuBgHandler = (e: Event) => {
-  if (!menuRef.value?.contains(e.target as HTMLElement)) {
+const clickHandler = (e: Event) => {
+  if (
+    !menuRef.value?.contains(e.target as HTMLElement) &&
+    !openMenuRef.value?.contains(e.target as HTMLElement)
+  ) {
     menuState.value = false;
+    document.removeEventListener("click", clickHandler);
   }
 };
-onMounted(() => {
-  window.addEventListener("click", menuBgHandler);
-});
-onUnmounted(() => {
-  window.removeEventListener("click", menuBgHandler);
-});
+const showMenu = () => {
+  menuState.value = true;
+  document.addEventListener("click", clickHandler);
+};
 
 // edit and delete column
 const modalState = ref<"" | "edit" | "delete">("");
@@ -42,12 +45,13 @@ const updateColumn = () => {
 <template>
   <div class="relative">
     <div
+      ref="openMenuRef"
       class="mb-4 text-2xl ml-3 cursor-pointer hover:text-blue-500"
-      @click.stop="menuState = true"
+      @click="showMenu"
     >
       ...
     </div>
-    <div v-if="menuState" ref="menuRef" class="absolute top-10 -right-2">
+    <div v-if="menuState" ref="menuRef" class="absolute top-10 -right-2 z-10">
       <div class="triangle"></div>
       <div
         class="text-sm border border-gray-300 rounded-md overflow-hidden bg-white py-1"
@@ -121,24 +125,3 @@ const updateColumn = () => {
     </div>
   </Modal>
 </template>
-
-<style lang="scss">
-.triangle {
-  &::before {
-    content: "";
-    position: absolute;
-    top: -16px;
-    right: 9px;
-    border-width: 8px;
-    border-color: transparent transparent #e5e7eb transparent;
-  }
-  &::after {
-    content: "";
-    position: absolute;
-    top: -13px;
-    right: 10px;
-    border-width: 7px;
-    border-color: transparent transparent #fff transparent;
-  }
-}
-</style>
