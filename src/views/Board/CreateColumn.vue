@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { useStore } from "Store/content";
-import Modal from "Components/Modal.vue";
+import { useStore } from "~/store/content";
+import Modal from "~/components/Modal.vue";
 
 const store = useStore();
 

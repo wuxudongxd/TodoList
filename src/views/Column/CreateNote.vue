@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { useStore } from "Store/content";
+import { useStore } from "~/store/content";
 
 // props
 const { columnId, setNewNoteState } = defineProps<{

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import CreateNote from "Views/Column/CreateNote.vue";
-import Menu from "Views/Column/Menu.vue";
+import CreateNote from "~/views/Column/CreateNote.vue";
+import Menu from "~/views/Column/Menu.vue";
 
 // props
 const { columnId, name, count } = defineProps<{

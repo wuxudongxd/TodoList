@@ -1,5 +1,5 @@
 import { onMounted, onUnmounted, Ref } from "vue";
-import { useStore } from "Store/content";
+import { useStore } from "~/store/content";
 
 const useDrop = (ref: Ref<HTMLElement | null>, data: { columnId: string }) => {
   const { columnId } = data;

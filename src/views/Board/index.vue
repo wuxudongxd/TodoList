@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { useStore } from "Store/content";
-import Column from "Views/Column/index.vue";
-import CreateColumn from "Views/Board/CreateColumn.vue";
+import { useStore } from "~/store/content";
+import Column from "~/views/Column/index.vue";
+import CreateColumn from "~/views/Board/CreateColumn.vue";
 
 const store = useStore();
 </script>

@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { computed, ref, toRef, toRefs } from "vue";
-import useDrop from "Hooks/useDrop";
-import Note from "Views/Note/index.vue";
-import Header from "Views/Column/Header.vue";
+import { computed, ref, toRefs } from "vue";
+import useDrop from "~/hooks/useDrop";
+import Note from "~/views/Note/index.vue";
+import Header from "~/views/Column/Header.vue";
 
 // props
 const { column } = defineProps<{ column: Column }>();

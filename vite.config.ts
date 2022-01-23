@@ -7,13 +7,7 @@ import vue from "@vitejs/plugin-vue";
 export default defineConfig({
   resolve: {
     alias: {
-      Api: path.resolve(__dirname, "src/api"),
-      Components: path.resolve(__dirname, "src/components"),
-      Hooks: path.resolve(__dirname, "src/hooks"),
-      Static: path.resolve(__dirname, "src/static"),
-      Store: path.resolve(__dirname, "src/store"),
-      Utils: path.resolve(__dirname, "src/utils"),
-      Views: path.resolve(__dirname, "src/views"),
+      "~": path.resolve(__dirname, "src"),
     },
   },
   plugins: [vue(), svgLoader()],

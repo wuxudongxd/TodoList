@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { UUID } from "../utils";
+import { UUID } from "~/utils";
 
 export const useStore = defineStore("todoList", {
   state: () => ({

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from "vue";
-import { useStore } from "Store/content";
-import Modal from "Components/Modal.vue";
+import { useStore } from "~/store/content";
+import Modal from "~/components/Modal.vue";
 
 // props
 const { name, columnId } = defineProps<{

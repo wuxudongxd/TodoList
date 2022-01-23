@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, toRefs } from "vue";
-import useDrag from "Hooks/useDrag";
-import NoteIcon from "Static/svg/note.svg";
+import useDrag from "~/hooks/useDrag";
+import NoteIcon from "~/static/svg/note.svg";
 
 // props
 const { note, columnId } = defineProps<{ note: Note; columnId: string }>();
