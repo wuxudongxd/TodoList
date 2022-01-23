@@ -37,6 +37,11 @@ const updateContent = () => {
   store.setNoteContent(columnId, note.id, newContent.value);
   closeEditModal();
 };
+const deleteNote = () => {
+  if (confirm("This will remove this note from the project")) {
+    store.delNote(columnId, note.id);
+  }
+};
 </script>
 
 <template>
@@ -60,6 +65,7 @@ const updateContent = () => {
           Edit note
         </div>
         <div
+          @click="deleteNote"
           class="w-44 h-8 flex items-center pl-4 cursor-pointer bg-white hover:bg-[#0969da] hover:text-white transition-all"
         >
           Delete note
