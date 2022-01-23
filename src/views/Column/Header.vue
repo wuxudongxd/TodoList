@@ -1,11 +1,15 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import CreateNote from "Views/Column/CreateNote.vue";
-import EditColName from "Views/Column/EditColName.vue";
+import ColMenu from "Views/Column/ColMenu.vue";
 
 // props
-const { columnId, name, count } =
-  defineProps<{ columnId: string; name: string; count: number }>();
+const { columnId, name, count, setColName } = defineProps<{
+  columnId: string;
+  name: string;
+  count: number;
+  setColName: (newName: string) => void;
+}>();
 
 // add new note
 const newNoteState = ref(false);
@@ -32,7 +36,11 @@ const setNewNoteState = () => {
       >
         十
       </div>
-      <EditColName></EditColName>
+      <ColMenu
+        :name="name"
+        :set-col-name="setColName"
+        :column-id="columnId"
+      ></ColMenu>
     </div>
   </div>
 
