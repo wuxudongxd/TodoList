@@ -61,5 +61,14 @@ export const useStore = defineStore("todoList", {
         content,
       });
     },
+    setColName(columnId: string, newName: string) {
+      const column = this.list.find((column) => column.id === columnId);
+      column?.name && (column.name = newName);
+    },
+    deleteCol(columnId: string) {
+      const column = this.list.find((column) => column.id === columnId);
+      const columnIndex = this.list.indexOf(column as Column);
+      this.list.splice(columnIndex, 1);
+    },
   },
 });

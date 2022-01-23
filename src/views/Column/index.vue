@@ -8,9 +8,6 @@ import Header from "Views/Column/Header.vue";
 const { column } = defineProps<{ column: Column }>();
 const { id: columnId, name, notes } = toRefs(column);
 const count = computed(() => notes.value.length);
-const setColName = (newName: string) => {
-  column.name = newName;
-};
 
 // drop Hook
 const columnRef = ref<HTMLElement | null>(null);
@@ -27,7 +24,6 @@ useDrop(columnRef, { columnId: columnId.value });
       :column-id="columnId"
       :name="name"
       :count="count"
-      :set-col-name="setColName"
     ></Header>
     <Note
       v-for="note in notes"

@@ -1,13 +1,16 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from "vue";
+import { useStore } from "Store/content";
 import Modal from "Components/Modal.vue";
 
 // props
-const { name, setColName, columnId } = defineProps<{
+const { name, columnId } = defineProps<{
   name: string;
-  setColName: (newName: string) => void;
   columnId: string;
 }>();
+
+// pinia global store
+const store = useStore();
 
 // show menu
 const menuRef = ref<HTMLElement | null>(null);
@@ -31,7 +34,7 @@ const closeModal = () => {
   modalState.value = "";
 };
 const updateColumn = () => {
-  setColName(newColName.value);
+  store.setColName(columnId, newColName.value);
   closeModal();
 };
 </script>
@@ -103,6 +106,7 @@ const updateColumn = () => {
       </div>
       <div class="mt-8">
         <button
+          @click="store.deleteCol(columnId)"
           class="w-32 h-8 text-red-600 border border-gray-300 rounded-md bg-gray-100 hover:bg-red-700 hover:text-white transition-all"
         >
           Delete column
