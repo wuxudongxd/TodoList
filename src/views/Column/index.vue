@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, toRef, toRefs } from "vue";
 import useDrop from "Hooks/useDrop";
-import Note from "../Note.vue";
+import Note from "Views/Note/index.vue";
 import Header from "Views/Column/Header.vue";
 
 // props
@@ -20,11 +20,7 @@ useDrop(columnRef, { columnId: columnId.value });
     tabindex="0"
     class="flex-none w-80 h-full px-2 overflow-auto rounded-md bg-[#f6f8fa] border border-gray-300 focus:ring focus:ring-blue-200 focus:border-blue-600"
   >
-    <Header
-      :column-id="columnId"
-      :name="name"
-      :count="count"
-    ></Header>
+    <Header :column-id="columnId" :name="name" :count="count"></Header>
     <Note
       v-for="note in notes"
       :key="note.id"

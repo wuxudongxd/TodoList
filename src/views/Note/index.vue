@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, toRefs } from "vue";
-import useDrag from "../hooks/useDrag";
+import useDrag from "Hooks/useDrag";
+import NoteIcon from "Static/svg/note.svg";
 
 // props
 const { note, columnId } = defineProps<{ note: Note; columnId: string }>();
@@ -16,7 +17,10 @@ useDrag(noteRef, { columnId, noteId: note.id });
     ref="noteRef"
     tabindex="0"
     draggable="true"
-    class="h-20 w-full bg-white p-3 mb-2 rounded-md border border-gray-300 cursor-move hover:shadow focus:ring focus:ring-blue-200 focus:border-blue-600">
+    class="h-20 w-full text-sm flex  bg-white p-3 mb-2 rounded-md border border-gray-300 cursor-move hover:shadow focus:ring focus:ring-blue-200 focus:border-blue-600"
+  >
+    <NoteIcon />
     <div>{{ content }}</div>
+    <div class="justify-self-end">...</div>
   </div>
 </template>
