@@ -32,19 +32,35 @@ export const useStore = defineStore("todoList", {
           },
         ],
       },
-    ],
+    ] as Column[],
   }),
 
   actions: {
+    getDetails(columnId: string, noteId?: string) {
+      const column = this.list.find(
+        (column) => column.id === columnId
+      ) as Column;
+      const columnIndex = this.list.indexOf(column);
+      if (noteId) {
+        const note = column?.notes.find((note) => note.id === noteId) as Note;
+        const noteIndex = column?.notes.indexOf(note);
+        return { column, columnIndex, note, noteIndex };
+      }
+      return { column, columnIndex };
+    },
     updateStore(FromColumnId: string, FromNoteId: string, ToColumnId: string) {
-      const FromColumn = this.list.find((column) => column.id === FromColumnId);
-      const FromNote = FromColumn?.notes.find((note) => note.id === FromNoteId);
-      const FromNoteIndex = FromColumn?.notes.indexOf(
-        FromNote as Note
-      ) as number;
+      const { column: FromColumn, noteIndex: FromNoteIndex } = this.getDetails(
+        FromColumnId,
+        FromNoteId
+      );
+      // const FromColumn = this.list.find((column) => column.id === FromColumnId);
+      // const FromNote = FromColumn?.notes.find((note) => note.id === FromNoteId);
+      // const FromNoteIndex = FromColumn?.notes.indexOf(
+      //   FromNote as Note
+      // ) as number;
       const ToColumn = this.list.find((column) => column.id === ToColumnId);
       ToColumn?.notes.push(
-        FromColumn?.notes.splice(FromNoteIndex, 1)[0] as Note
+        FromColumn?.notes.splice(FromNoteIndex as number, 1)[0] as Note
       );
     },
     newColumn(name: string) {
