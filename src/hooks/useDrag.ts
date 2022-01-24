@@ -6,20 +6,14 @@ const useDrag = (
 ) => {
   let { noteId, columnId } = data;
   const dragstart = (e: DragEvent) => {
-    e.dataTransfer?.setData("text/plain", `${columnId},${noteId}`);    
+    e.dataTransfer?.setData("text/plain", `${columnId},${noteId}`);
   };
 
-  const handlers = [dragstart];
-
   onMounted(() => {
-    handlers.forEach((handler) => {
-      ref.value?.addEventListener(handler.name, handler as any);
-    });
+    ref.value?.addEventListener("dragstart", dragstart);
   });
   onUnmounted(() => {
-    handlers.forEach((handler) => {
-      ref.value?.removeEventListener(handler.name, handler as any);
-    });
+    ref.value?.addEventListener("dragstart", dragstart);
   });
 };
 

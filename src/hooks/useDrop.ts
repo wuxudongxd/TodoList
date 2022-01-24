@@ -23,7 +23,6 @@ const useDrop = (ref: Ref<HTMLElement | null>, data: { columnId: string }) => {
      * 实现完善的拖拽效果需要用到全局状态来存储拖拽和dragenter的note对应信息
      * 这里先不写了，实现一个简陋版本，能用就行~
      */
-
     e.preventDefault();
     e.dataTransfer && (e.dataTransfer.dropEffect = "move");
   };
@@ -33,19 +32,15 @@ const useDrop = (ref: Ref<HTMLElement | null>, data: { columnId: string }) => {
     e.dataTransfer && (e.dataTransfer.dropEffect = "move");
   };
 
-  const dragleave = (e: DragEvent) => {};
-
-  const handlers = [drop, dragenter, dragover, dragleave];
-
   onMounted(() => {
-    handlers.forEach((handler) => {
-      ref.value?.addEventListener(handler.name, handler as any);
-    });
+    ref.value?.addEventListener("drop", drop);
+    ref.value?.addEventListener("dragenter", dragenter);
+    ref.value?.addEventListener("dragover", dragover);
   });
   onUnmounted(() => {
-    handlers.forEach((handler) => {
-      ref.value?.removeEventListener(handler.name, handler as any);
-    });
+    ref.value?.removeEventListener("drop", drop);
+    ref.value?.removeEventListener("dragenter", dragenter);
+    ref.value?.removeEventListener("dragover", dragover);
   });
 };
 
