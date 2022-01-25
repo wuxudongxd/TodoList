@@ -36,6 +36,7 @@ export const useStore = defineStore("todoList", {
   }),
 
   actions: {
+    // 工具函数，获取必要之信息
     getDetails(columnId: string, noteId?: string) {
       const column = this.list.find(
         (column) => column.id === columnId
@@ -48,21 +49,20 @@ export const useStore = defineStore("todoList", {
       }
       return { column, columnIndex };
     },
+
+    // 将拖拽的note添加到新的column中
     updateStore(FromColumnId: string, FromNoteId: string, ToColumnId: string) {
       const { column: FromColumn, noteIndex: FromNoteIndex } = this.getDetails(
         FromColumnId,
         FromNoteId
       );
-      // const FromColumn = this.list.find((column) => column.id === FromColumnId);
-      // const FromNote = FromColumn?.notes.find((note) => note.id === FromNoteId);
-      // const FromNoteIndex = FromColumn?.notes.indexOf(
-      //   FromNote as Note
-      // ) as number;
       const ToColumn = this.list.find((column) => column.id === ToColumnId);
       ToColumn?.notes.push(
         FromColumn?.notes.splice(FromNoteIndex as number, 1)[0] as Note
       );
     },
+
+    // 新增 column
     newColumn(name: string) {
       this.list.push({
         id: UUID(),
@@ -70,31 +70,37 @@ export const useStore = defineStore("todoList", {
         notes: [],
       });
     },
+
+    // 新增 note
     newNote(columnId: string, content: string) {
-      const column = this.list.find((column) => column.id === columnId);
+      const { column } = this.getDetails(columnId);
       column?.notes.unshift({
         id: UUID(),
         content,
       });
     },
+
+    // 重命名 column
     setColName(columnId: string, newName: string) {
-      const column = this.list.find((column) => column.id === columnId);
+      const { column } = this.getDetails(columnId);
       column?.name && (column.name = newName);
     },
+
+    // 删除 column
     deleteCol(columnId: string) {
-      const column = this.list.find((column) => column.id === columnId);
-      const columnIndex = this.list.indexOf(column as Column);
+      const { columnIndex } = this.getDetails(columnId);
       this.list.splice(columnIndex, 1);
     },
+
+    // 修改 note 内容
     setNoteContent(columnId: string, noteId: string, newContent: string) {
-      const column = this.list.find((column) => column.id === columnId);
-      const note = column?.notes.find((note) => note.id === noteId);
+      const { note } = this.getDetails(columnId, noteId);
       note?.content && (note.content = newContent);
     },
+
+    // 删除 note
     delNote(columnId: string, noteId: string) {
-      const column = this.list.find((column) => column.id === columnId);
-      const note = column?.notes.find((note) => note.id === noteId);
-      const noteIndex = column?.notes.indexOf(note as Note);
+      const { column, noteIndex } = this.getDetails(columnId, noteId);
       column?.notes.splice(noteIndex as number, 1);
     },
   },
