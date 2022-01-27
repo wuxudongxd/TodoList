@@ -1,10 +1,10 @@
+import { fetchList } from "./../api/index";
 import { defineStore } from "pinia";
 import { UUID } from "~/utils";
 
-export const useStore = defineStore("todoList", {
-  state: () => ({
-    list: [
-      {
+/**
+ * 
+ {
         id: "3e8cb491-fd1d-47a3-9ca1-1d247fc4feae",
         name: "TODO",
         notes: [
@@ -32,10 +32,20 @@ export const useStore = defineStore("todoList", {
           },
         ],
       },
-    ] as Column[],
+ */
+
+export const useStore = defineStore("todoList", {
+  state: () => ({
+    list: [] as Column[],
   }),
 
   actions: {
+    async initList() {
+      const data = await fetchList();
+      console.log(data);
+
+      this.list = data;
+    },
     // 工具函数，获取必要之信息
     getDetails(columnId: string, noteId?: string) {
       const column = this.list.find(

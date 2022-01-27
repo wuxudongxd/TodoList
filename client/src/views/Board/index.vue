@@ -4,6 +4,7 @@ import Column from "~/views/Column/index.vue";
 import CreateColumn from "~/views/Board/CreateColumn.vue";
 
 const store = useStore();
+store.initList();
 </script>
 
 <template>
