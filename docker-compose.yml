@@ -1,0 +1,48 @@
+version: "3"
+
+volumes: # 自定义数据卷，位于宿主机/var/lib/docker/volumes内
+  todo_db_vol: # 定义数据卷同步容器内mysql数据
+
+services:
+  db:
+    image: mysql:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD=root #root管理员用户密码
+      - MYSQL_DATABASE=todo_list # 数据库名称
+      - MYSQL_USER = root # 数据库用户名
+      - MYSQL_PASSWORD=root # 用户密码
+    volumes:
+      - todo_db_vol:/var/lib/mysql:rw # 挂载数据库数据, 可读可写
+      - ./deply/mysql/init:/docker-entrypoint-initdb.d/ # 挂载数据初始化sql脚本
+    ports:
+      - "3306:3306" # 与配置文件保持一致
+    restart: always
+  
+  server:
+    build:
+      context: .         # 相当于把Dockerfile文件复制到根目录
+      dockerfile: ./deply/server/Dockerfile
+    expose:
+      - "3001"
+    links:
+      - db
+    depends_on: # 依赖关系
+      - db
+    restart: always
+
+  nginx:
+    image: nginx
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf #挂载nginx配置
+      - ./client/dist:/usr/share/nginx/html/  #挂载项目
+    ports:
+      - "80:80"
+      - "443:443"
+    expose:
+      - "80"
+      - "443"
+    links:
+      - server
+    depends_on:
+      - server
+    restart: always

@@ -20,8 +20,8 @@ SET FOREIGN_KEY_CHECKS = 0;
 /*
 * create table
 */
-create DATABASE todo_list;
-use todo_list;
+CREATE DATABASE todo_list;
+USE todo_list;
 
 -- ----------------------------
 -- Table structure for column

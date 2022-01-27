@@ -1,5 +1,5 @@
 const request = async (url: string, config: any) => {
-  const baseUrl = "http://localhost:3001";
+  const baseUrl = "/api";
   try {
     const res = await fetch(baseUrl + url, config);
     if (!res.ok) {
