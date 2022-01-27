@@ -1,5 +1,5 @@
 const dbConfig = {
-  host: "192.168.197.130",
+  host: "db",
   port: 3306,
   user: "root",
   password: "root",
