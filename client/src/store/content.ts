@@ -1,38 +1,5 @@
-import { fetchList } from "./../api/index";
+import { get, post, patch, deleteReq } from "~/api";
 import { defineStore } from "pinia";
-import { UUID } from "~/utils";
-
-/**
- * 
- {
-        id: "3e8cb491-fd1d-47a3-9ca1-1d247fc4feae",
-        name: "TODO",
-        notes: [
-          {
-            id: "484287bf-6588-4b4c-81e6-05dda5f2d7f6",
-            content: "todo-task-1",
-          },
-          {
-            id: "00b5026e-6755-44dc-97d0-24a04cdec7fd",
-            content: "todo-task-2",
-          },
-        ],
-      },
-      {
-        id: "11566563-4fbe-4a4a-854c-efc6d9792949",
-        name: "DONE",
-        notes: [
-          {
-            id: "070833c0-51f8-4102-ba0a-1142eff4d87d",
-            content: "todo-task-3",
-          },
-          {
-            id: "b5f141f9-74de-4340-baf9-099406506834",
-            content: "todo-task-4",
-          },
-        ],
-      },
- */
 
 export const useStore = defineStore("todoList", {
   state: () => ({
@@ -41,10 +8,8 @@ export const useStore = defineStore("todoList", {
 
   actions: {
     async initList() {
-      const data = await fetchList();
-      console.log(data);
-
-      this.list = data;
+      const response = await get("/list");
+      this.list = JSON.parse(response.data);
     },
     // 工具函数，获取必要之信息
     getDetails(columnId: string, noteId?: string) {
@@ -61,57 +26,83 @@ export const useStore = defineStore("todoList", {
     },
 
     // 将拖拽的note添加到新的column中
-    updateStore(FromColumnId: string, FromNoteId: string, ToColumnId: string) {
+    async updateStore(
+      FromColumnId: string,
+      FromNoteId: string,
+      ToColumnId: string
+    ) {
       const { column: FromColumn, noteIndex: FromNoteIndex } = this.getDetails(
         FromColumnId,
         FromNoteId
       );
       const ToColumn = this.list.find((column) => column.id === ToColumnId);
-      ToColumn?.notes.push(
-        FromColumn?.notes.splice(FromNoteIndex as number, 1)[0] as Note
-      );
+      // request
+      const response = await patch("/list", { FromNoteId, ToColumnId });
+      if (response.res === "success") {
+        ToColumn?.notes.push(
+          FromColumn?.notes.splice(FromNoteIndex as number, 1)[0] as Note
+        );
+      }
     },
 
     // 新增 column
-    newColumn(name: string) {
-      this.list.push({
-        id: UUID(),
-        name,
-        notes: [],
-      });
+    async newColumn(name: string) {
+      const response = await post("/column", { name });
+      if (response.res === "success") {
+        this.list.push({
+          id: response.data.noteId,
+          name,
+          notes: [],
+        });
+      }
     },
 
     // 新增 note
-    newNote(columnId: string, content: string) {
-      const { column } = this.getDetails(columnId);
-      column?.notes.unshift({
-        id: UUID(),
-        content,
-      });
+    async newNote(columnId: string, content: string) {
+      const response = await post("/note", { columnId, content });
+      if (response.res === "success") {
+        const { column } = this.getDetails(columnId);
+        column?.notes.unshift({
+          id: response.data.noteId,
+          content,
+        });
+      }
     },
 
     // 重命名 column
-    setColName(columnId: string, newName: string) {
-      const { column } = this.getDetails(columnId);
-      column?.name && (column.name = newName);
+    async setColName(columnId: string, newName: string) {
+      const response = await patch("/column", { columnId, newName });
+      if (response.res === "success") {
+        const { column } = this.getDetails(columnId);
+        column?.name && (column.name = newName);
+      }
     },
 
     // 删除 column
-    deleteCol(columnId: string) {
-      const { columnIndex } = this.getDetails(columnId);
-      this.list.splice(columnIndex, 1);
+    async deleteCol(columnId: string) {
+      const response = await deleteReq("/column", { columnId });
+      if (response.res === "success") {
+        const { columnIndex } = this.getDetails(columnId);
+        this.list.splice(columnIndex, 1);
+      }
     },
 
     // 修改 note 内容
-    setNoteContent(columnId: string, noteId: string, newContent: string) {
-      const { note } = this.getDetails(columnId, noteId);
-      note?.content && (note.content = newContent);
+    async setNoteContent(columnId: string, noteId: string, newContent: string) {
+      const response = await patch("/note", { noteId, newContent });
+      if (response.res === "success") {
+        const { note } = this.getDetails(columnId, noteId);
+        note?.content && (note.content = newContent);
+      }
     },
 
     // 删除 note
-    delNote(columnId: string, noteId: string) {
-      const { column, noteIndex } = this.getDetails(columnId, noteId);
-      column?.notes.splice(noteIndex as number, 1);
+    async delNote(columnId: string, noteId: string) {
+      const response = await deleteReq("/note", { noteId });
+      if (response.res === "success") {
+        const { column, noteIndex } = this.getDetails(columnId, noteId);
+        column?.notes.splice(noteIndex as number, 1);
+      }
     },
   },
 });
