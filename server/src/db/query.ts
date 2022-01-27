@@ -16,15 +16,10 @@ const query = (sql: string) => {
   return new Promise<any>((resolve, reject) => {
     pool.getConnection((error, connection) => {
       if (error) {
-        console.log(error);
-        
         reject(error);
       } else {
         connection.query(sql, (error, results) => {
-          console.log(sql);
-          
           if (error) {
-            console.log(error);
             reject(error);
           } else {
             resolve(results);
