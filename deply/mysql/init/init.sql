@@ -17,10 +17,6 @@
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
-/*
-* create table
-*/
-CREATE DATABASE todo_list;
 USE todo_list;
 
 -- ----------------------------
