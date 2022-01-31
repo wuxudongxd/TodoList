@@ -23,7 +23,7 @@ useDrag(noteRef, { columnId, noteId: note.id });
     <div>
       <NoteIcon />
     </div>
-    <div class="ml-2 -mt-[2px] break-words text-gray-700">{{ content }}</div>
+    <div class="ml-2 -mt-[2px] break-all text-gray-700">{{ content }}</div>
     <Menu :note="note" :column-id="columnId"></Menu>
   </div>
 </template>
