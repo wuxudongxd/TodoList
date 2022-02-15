@@ -1,7 +1,10 @@
 ## 简介
 
 ![](https://img.shields.io/github/license/wuxudongxd/TodoList?style=flat-square)
-![](https://shields.io/badge/TypeScript-3178C6?logo=TypeScript&logoColor=FFF&style=flat-square)![](https://img.shields.io/badge/-Vue-4fc08d?style=flat-square&logo=vuedotjs&logoColor=fff)![](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=flat-square&logo=tailwind-css&logoColor=white)
+
+![](https://shields.io/badge/TypeScript-3178C6?logo=TypeScript&logoColor=FFF&style=flat-square)
+![](https://img.shields.io/badge/-Vue-4fc08d?style=flat-square&logo=vuedotjs&logoColor=fff)
+![](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=flat-square&logo=tailwind-css&logoColor=white)
 
 **本项目是对 Vue3 Composition API 学习的 DEMO项目。**
 
