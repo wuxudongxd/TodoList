@@ -1,0 +1,20 @@
+{
+  "name": "@wuxudongxd/todolist-devtool",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "localforage": "^1.10.0",
+    "msw": "^0.38.1"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^21.0.2",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^13.1.3",
+    "@types/node": "^17.0.10",
+    "rollup": "^2.69.0",
+    "rollup-plugin-typescript2": "^0.31.2",
+    "tslib": "^2.3.1",
+    "typescript": "^4.5.5"
+  }
+}
