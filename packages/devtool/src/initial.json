@@ -1,0 +1,20 @@
+{
+  "columns": [
+    {
+      "id": "187e40e0-8273-11ec-b36b-aba721196b3f",
+      "name": "column1",
+      "notes": [
+        { "id": "42f903d0-826b-11ec-b36b-aba721196b3f", "content": "note1" },
+        { "id": "7da75150-8273-11ec-b36b-aba721196b3f", "content": "note2" }
+      ]
+    },
+    {
+      "id": "d65659d0-7f4f-11ec-8ba2-d78ec5fd7394",
+      "name": "column2",
+      "notes": [
+        { "id": "e024ba10-7f4f-11ec-8ba2-d78ec5fd7394", "content": "note3" }
+      ]
+    },
+    { "id": "f0105970-7f4f-11ec-8ba2-d78ec5fd7394", "name": "column3", "notes": [] }
+  ]
+}
