@@ -54,7 +54,7 @@ export const useStore = defineStore("todoList", {
       const response = await post("/column", { name });
       if (response.res === "success") {
         this.list.push({
-          id: response.data.noteId,
+          id: response.data.columnId,
           name,
           notes: [],
         });
