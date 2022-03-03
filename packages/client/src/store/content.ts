@@ -8,8 +8,8 @@ export const useStore = defineStore("todoList", {
 
   actions: {
     async initList() {
-      const response = await get("/list");
-      this.list = JSON.parse(response.data);
+      const { data } = await get("/list");
+      this.list = data;
     },
     // 工具函数，获取必要之信息
     getDetails(columnId: string, noteId?: string) {
@@ -37,7 +37,11 @@ export const useStore = defineStore("todoList", {
       );
       const ToColumn = this.list.find((column) => column.id === ToColumnId);
       // request
-      const response = await patch("/list", { FromNoteId, ToColumnId });
+      const response = await patch("/list", {
+        FromColumnId,
+        FromNoteId,
+        ToColumnId,
+      });
       if (response.res === "success") {
         ToColumn?.notes.push(
           FromColumn?.notes.splice(FromNoteIndex as number, 1)[0] as Note
@@ -50,7 +54,7 @@ export const useStore = defineStore("todoList", {
       const response = await post("/column", { name });
       if (response.res === "success") {
         this.list.push({
-          id: response.data.noteId,
+          id: response.data.columnId,
           name,
           notes: [],
         });
@@ -89,7 +93,7 @@ export const useStore = defineStore("todoList", {
 
     // 修改 note 内容
     async setNoteContent(columnId: string, noteId: string, newContent: string) {
-      const response = await patch("/note", { noteId, newContent });
+      const response = await patch("/note", { columnId, noteId, newContent });
       if (response.res === "success") {
         const { note } = this.getDetails(columnId, noteId);
         note?.content && (note.content = newContent);
@@ -98,7 +102,7 @@ export const useStore = defineStore("todoList", {
 
     // 删除 note
     async delNote(columnId: string, noteId: string) {
-      const response = await deleteReq("/note", { noteId });
+      const response = await deleteReq("/note", { columnId, noteId });
       if (response.res === "success") {
         const { column, noteIndex } = this.getDetails(columnId, noteId);
         column?.notes.splice(noteIndex as number, 1);

@@ -1,5 +1,5 @@
 {
-  "name": "todo-list",
+  "name": "client",
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
@@ -7,6 +7,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@wuxudongxd/todolist-devtool": "workspace:^1.0.0",
     "pinia": "^2.0.9",
     "vue": "^3.2.29"
   },
@@ -22,5 +23,8 @@
     "vite": "^2.7.13",
     "vite-svg-loader": "^3.1.2",
     "vue-tsc": "^0.31.1"
+  },
+  "msw": {
+    "workerDirectory": "public"
   }
 }

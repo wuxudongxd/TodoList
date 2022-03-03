@@ -1,0 +1,13 @@
+{
+  "name": "todo-list",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/wuxudongxd/TodoList.git",
+  "author": "wuxudongxd <wuxudongxd@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "client:dev": "pnpm -C ./packages/client run dev",
+    "client:build": "pnpm -C ./packages/client run build",
+    "devtool:build": "pnpm -C ./packages/devtool run build"
+  }
+}
