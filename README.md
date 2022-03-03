@@ -21,7 +21,11 @@ TodoList 完成对GitHub旧版Projects界面的模仿实现，主要功能有对
 * tailwindcss 实现页面样式编写
 * 抽离自定义hooks与自定义功能组件（包含拖拽hook、全局遮罩组件）
 
-### 服务端
+### 服务端（在 with-backend 分支）
 
 * 使用Express搭建后端服务，连接MySQL实现数据持久化
 * 使用Docker及Docker-compose统一部署项目
+
+### 数据 mock （master 分支）
+* 重构部分代码后单独实现了 [@wuxudongxd/todolist-devtool](https://www.npmjs.com/package/@wuxudongxd/todolist-devtool) 提供数据 mock 服务。
+* 借助 msw 库调用 Service Worker 拦截请求，以 IndexedDB 数据库作为持久化存储，实现对请求的响应
