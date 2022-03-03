@@ -37,7 +37,11 @@ export const useStore = defineStore("todoList", {
       );
       const ToColumn = this.list.find((column) => column.id === ToColumnId);
       // request
-      const response = await patch("/list", { FromNoteId, ToColumnId });
+      const response = await patch("/list", {
+        FromColumnId,
+        FromNoteId,
+        ToColumnId,
+      });
       if (response.res === "success") {
         ToColumn?.notes.push(
           FromColumn?.notes.splice(FromNoteIndex as number, 1)[0] as Note
